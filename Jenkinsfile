@@ -10,8 +10,6 @@ pipeline {
       parallel {
         stage('build') {
           steps {
-            sh '''script:
-'''
             echo 'hello world'
           }
         }
