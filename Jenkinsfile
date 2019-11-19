@@ -7,10 +7,41 @@ pipeline {
   }
   stages {
     stage('build') {
-      steps {
-        sh '''script:
+      parallel {
+        stage('build') {
+          steps {
+            sh '''script:
 '''
-        echo 'hello world'
+            echo 'hello world'
+          }
+        }
+
+        stage('analyses') {
+          steps {
+            echo 'nanlyse'
+          }
+        }
+
+      }
+    }
+
+    stage('devloy') {
+      parallel {
+        stage('devloy') {
+          steps {
+            retry(count: 4) {
+              sleep 5
+            }
+
+          }
+        }
+
+        stage('upload_products') {
+          steps {
+            echo 'products'
+          }
+        }
+
       }
     }
 
